@@ -1,1 +1,52 @@
 @import "~bootstrap/dist/css/bootstrap.css";
+
+.row {
+    margin: 0;
+    padding: 0;
+}
+
+.bg-custom {
+    background-color: brown;
+}
+
+.fullscreen {
+    height: 100vh;
+    width: 100%;
+    background-image: url('../images/duck-1463317.jpg');
+    color: antiquewhite;
+    text-shadow: 1px 1px 2px black;
+}
+
+.parallaxe {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
+
+.myFooter, .myFooter a:link, .myFooter a:visited , .myFooter a:hover, .myFooter a:active {
+    text-decoration: none;
+    color: white;
+}
+
+p {
+    font-size: calc(11px + 10 * (100vw - 200px) / 1400);
+}
+
+h1 {
+    font-size: calc(20px + 15 * (100vw - 200px) / 1400);
+}
+
+h2 {
+    font-size: calc(19px + 14 * (100vw - 200px) / 1400);
+}
+h3 {
+    font-size: calc(17px + 12 * (100vw - 200px) / 1400);
+}
+
+h4 {
+    font-size: calc(15px + 11 * (100vw - 200px) / 1400);
+}
+
+h5 {
+    font-size: calc(13px + 11 * (100vw - 200px) / 1400);
+}
