@@ -1,0 +1,5 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary float-left">{{ button_label|default('Créer') }}</button>
+<a href="{{ path('category_index') }}" class="btn btn-warning float-right">Retour à la liste</a>
+{{ form_end(form) }}
