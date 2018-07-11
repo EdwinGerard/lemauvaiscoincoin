@@ -5,6 +5,10 @@
     padding: 0;
 }
 
+.container {
+    height: 100vh;
+}
+
 .bg-custom {
     background-color: brown;
 }

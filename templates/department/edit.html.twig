@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un département{% endblock %}
+
+{% block body %}
+    <h1>Modifier un département</h1>
+
+    {{ include('department/_form.html.twig', {'button_label': 'Modifier'}) }}
+    <div class="text-center">
+        {{ include('department/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
