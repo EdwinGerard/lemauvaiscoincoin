@@ -34,7 +34,7 @@ class RegistrationController extends Controller
 
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-            $user->setIsActive(false);
+            $user->setIsActive(true);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -60,27 +60,6 @@ class RegistrationController extends Controller
      */
     public function registrationSuccess()
     {
-        return $this->render('registration/checkMail.html.twig');
-    }
-
-    /**
-     * @param $token
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route(name="registration_confirm")
-     */
-    public function confirmAction($token)
-    {
-        $userManager = $this->getDoctrine()->getManager()->getRepository('User');
-
-        $user = $userManager->findUserByConfirmationToken($token);
-
-        if (null === $user) {
-            throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
-        }
-        $user->setConfirmationToken(null);
-        $user->setIsActive(true);
-        $this->getDoctrine()->getManager()->flush();
-
-        return $this->render('registration/confirmed.html.twig', array('user' => $user));
+        return $this->render('registration/confirmed.html.twig');
     }
 }

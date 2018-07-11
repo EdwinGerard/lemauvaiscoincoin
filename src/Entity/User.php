@@ -62,13 +62,6 @@ class User implements UserInterface, \Serializable
      */
     private $roles;
 
-    /**
-     * Random string sent to the user email address in order to verify it.
-     *
-     * @var string|null
-     */
-    protected $confirmationToken;
-
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
@@ -242,22 +235,6 @@ class User implements UserInterface, \Serializable
         $this->plainPassword = $plainPassword;
 
         return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getConfirmationToken (): ?string
-    {
-        return $this->confirmationToken;
-    }
-
-    /**
-     * @param null|string $confirmationToken
-     */
-    public function setConfirmationToken (?string $confirmationToken): void
-    {
-        $this->confirmationToken = $confirmationToken;
     }
 
 }
