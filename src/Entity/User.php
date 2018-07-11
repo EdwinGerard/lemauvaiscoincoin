@@ -62,13 +62,6 @@ class User implements UserInterface, \Serializable
      */
     private $roles;
 
-    /**
-     * Random string sent to the user email address in order to verify it.
-     *
-     * @var string|null
-     */
-    protected $confirmationToken;
-
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
@@ -163,8 +156,6 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->userName,
             $this->password,
-            // see section on salt below
-            // $this->salt,
         ));
     }
 
@@ -190,17 +181,6 @@ class User implements UserInterface, \Serializable
 
     /**
      * Returns the roles granted to the user.
-     *
-     * <code>
-     * public function getRoles()
-     * {
-     *     return array('ROLE_USER');
-     * }
-     * </code>
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
      *
      * @return (Role|string)[] The user roles
      */
@@ -229,7 +209,6 @@ class User implements UserInterface, \Serializable
      */
     public function eraseCredentials ()
     {
-        // TODO: Implement eraseCredentials() method.
     }
 
     public function getPlainPassword(): ?string
@@ -242,22 +221,6 @@ class User implements UserInterface, \Serializable
         $this->plainPassword = $plainPassword;
 
         return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getConfirmationToken (): ?string
-    {
-        return $this->confirmationToken;
-    }
-
-    /**
-     * @param null|string $confirmationToken
-     */
-    public function setConfirmationToken (?string $confirmationToken): void
-    {
-        $this->confirmationToken = $confirmationToken;
     }
 
 }

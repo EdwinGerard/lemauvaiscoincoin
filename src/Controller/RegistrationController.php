@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Service\Mailer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,13 +12,18 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends Controller
 {
+
     /**
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param Mailer $mailer
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/registration", name="registration")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, Mailer $mailer)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -27,14 +33,14 @@ class RegistrationController extends Controller
 
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-            $user->setIsActive(false);
+            $user->setIsActive(true);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
+            $mailer->sendConfirmationMail($user);
+            $this->addFlash('success', 'Inscription réussite!');
 
             return $this->redirectToRoute('registration_check');
         }
@@ -51,6 +57,6 @@ class RegistrationController extends Controller
      */
     public function registrationSuccess()
     {
-        return $this->render('registration/checkMail.html.twig');
+        return $this->render('registration/confirmed.html.twig');
     }
 }
