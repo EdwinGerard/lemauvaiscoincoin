@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -68,9 +70,15 @@ class User implements UserInterface, \Serializable
      */
     protected $confirmationToken;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="creator", orphanRemoval=true)
+     */
+    private $products;
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
+        $this->products = new ArrayCollection();
     }
 
     public function getId()
@@ -243,6 +251,37 @@ class User implements UserInterface, \Serializable
     public function setConfirmationToken (?string $confirmationToken): void
     {
         $this->confirmationToken = $confirmationToken;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            // set the owning side to null (unless already changed)
+            if ($product->getCreator() === $this) {
+                $product->setCreator(null);
+            }
+        }
+
+        return $this;
     }
 
 
