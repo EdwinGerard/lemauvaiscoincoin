@@ -156,8 +156,6 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->userName,
             $this->password,
-            // see section on salt below
-            // $this->salt,
         ));
     }
 
@@ -183,17 +181,6 @@ class User implements UserInterface, \Serializable
 
     /**
      * Returns the roles granted to the user.
-     *
-     * <code>
-     * public function getRoles()
-     * {
-     *     return array('ROLE_USER');
-     * }
-     * </code>
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
      *
      * @return (Role|string)[] The user roles
      */
@@ -222,7 +209,6 @@ class User implements UserInterface, \Serializable
      */
     public function eraseCredentials ()
     {
-        // TODO: Implement eraseCredentials() method.
     }
 
     public function getPlainPassword(): ?string

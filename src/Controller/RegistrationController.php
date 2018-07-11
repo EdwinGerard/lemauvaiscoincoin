@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Service\Mailer;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -41,9 +40,7 @@ class RegistrationController extends Controller
             $entityManager->flush();
 
             $mailer->sendConfirmationMail($user);
-
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
+            $this->addFlash('success', 'Inscription réussite!');
 
             return $this->redirectToRoute('registration_check');
         }
