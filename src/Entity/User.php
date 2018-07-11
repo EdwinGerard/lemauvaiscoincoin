@@ -62,6 +62,12 @@ class User implements UserInterface, \Serializable
      */
     private $roles;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     */
+    protected $confirmationToken;
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
@@ -222,5 +228,23 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+
+    /**
+     * @return null|string
+     */
+    public function getConfirmationToken (): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * @param null|string $confirmationToken
+     */
+    public function setConfirmationToken (?string $confirmationToken): void
+    {
+        $this->confirmationToken = $confirmationToken;
+    }
+
+
 
 }

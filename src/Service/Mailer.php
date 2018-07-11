@@ -25,11 +25,13 @@ class Mailer
      * Mailer constructor.
      * @param \Swift_Mailer $mailer
      * @param \Twig_Environment $templating
+     * @param UrlGeneratorInterface $router
      */
-    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $templating)
+    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $templating, UrlGeneratorInterface $router)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
+        $this->router = $router;
     }
 
     /**
@@ -42,7 +44,7 @@ class Mailer
     {
         $message = new \Swift_Message();
         $template = 'mail/confirmation.html.twig';
-        $url = $this->router->generate('registration_confirm', UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate('registration_confirm', array('token' => $user->getConfirmationToken()), UrlGeneratorInterface::ABSOLUTE_URL);
         $body = $this->templating->render($template, [
             'user' => $user,
             'confirmationUrl' => $url,
