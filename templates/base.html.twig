@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('faviconDuck.ico') }}" />
         <title>{% block title %}Le mauvais coin coin!{% endblock %}</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         {% block stylesheets %}{% endblock %}
@@ -20,11 +21,22 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/">Accueil<span class="sr-only">(current)</span></a>
                         </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a href="{{ path('category_index') }}" class="nav-link">Catégories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('department_index') }}" class="nav-link">Départements</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('product_index') }}" class="nav-link">Produits</a>
+                            </li>
+                        {% endif %}
                     </ul>
                     <ul class="navbar-nav">
                         {% if is_granted("IS_AUTHENTICATED_FULLY") %}
                             <li class="nav-item">
-                                <a class="nav-link" href="/profile/">Mon Compte</a>
+                                <a class="nav-link" href="{{ path('profile') }}">Mon Compte</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('security_logout') }}">Se Déconnecter</a>
@@ -51,9 +63,15 @@
             {% endfor %}
         </div>
         {% block content %}
-            <div class="container p-2">
-                {% block body %}{% endblock %}
-            </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="admin mt-1">
+            {% endif %}
+                    <div class="container p-2">
+                        {% block body %}{% endblock %}
+                    </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                </div>
+            {% endif %}
         {% endblock %}
         {% block footer %}
             {% include 'footer.html.twig' %}
