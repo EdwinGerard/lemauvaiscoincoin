@@ -19,6 +19,36 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function findByLike($name, $filterName, $filter)
+    {
+        if ($filterName === '' && $filter === '') {
+            return $this->createQueryBuilder('p')
+                ->where('p.name LIKE :name')
+                ->setParameter('name', "%$name%")
+                ->getQuery()
+                ->execute();
+        }
+        if ($filterName == 'category') {
+            return $this->createQueryBuilder('p')
+                ->join('p.category', 'c')
+                ->where('p.name LIKE :name')
+                ->andWhere('c.id = :idFilter')
+                ->setParameter('name', "%$name%")
+                ->setParameter('idFilter', "$filter")
+                ->getQuery()
+                ->execute();
+        }elseif ($filterName == 'department') {
+            return $this->createQueryBuilder('p')
+                ->join('p.department', 'd')
+                ->where('p.name LIKE :name')
+                ->andWhere('d.id = :idFilter')
+                ->setParameter('name', "%$name%")
+                ->setParameter('idFilter', "$filter")
+                ->getQuery()
+                ->execute();
+        }
+    }
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

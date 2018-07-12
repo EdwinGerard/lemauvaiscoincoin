@@ -29,6 +29,14 @@
     background-repeat: no-repeat;
 }
 
+.no-result {
+    width: 50vw;
+    height: 100vh;
+    background-image: url("../images/sad-1676720_1280.png");
+    background-size: 30%;
+    background-repeat: no-repeat;
+}
+
 .parallaxe {
     background-attachment: fixed;
     background-size: cover;
@@ -61,4 +69,14 @@ h4 {
 
 h5 {
     font-size: calc(13px + 11 * (100vw - 200px) / 1400);
+}
+
+.searchButton {
+    position: relative;
+    top: 4px;
+    height: 40px;
+}
+
+.searchBar {
+    margin-bottom: 0;
 }

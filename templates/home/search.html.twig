@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if products is defined and products is not empty %}
+        {% for product in products %}
+            <p>{{ product.name }}</p>
+        {% endfor %}
+    {% else %}
+        <h1 class="text-center">Aucun résultat trouvé</h1>
+        <div class="row">
+            <div class="col-3 offset-4">
+                <div class="no-result">
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

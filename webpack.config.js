@@ -6,6 +6,7 @@ Encore
     // the public path used by the web server to access the previous directory
     .setPublicPath('/build')
     .addEntry('js/app', './assets/js/global.js')
+    .addEntry('js/search', './assets/js/search.js')
     .addStyleEntry('css/app', './assets/css/global.css')
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
