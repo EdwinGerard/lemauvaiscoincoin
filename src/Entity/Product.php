@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -43,6 +45,21 @@ class Product
      * @ORM\JoinColumn(nullable=false)
      */
     private $creator;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture;
+
+    /**
+     * @Assert\NotBlank(message="Please, uploads the product image as a JPG,JPEG,PNG file.")
+     * @Assert\File(
+     *     mimeTypes = {"image/jpeg", "image/png", "image/jpg"},
+     *     mimeTypesMessage = "Wrong file type (jpeg,png,jpg)"
+     * )
+     * @var UploadedFile
+     */
+    private $uploadedPic;
 
     public function getId()
     {
@@ -108,4 +125,34 @@ class Product
 
         return $this;
     }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getUploadedPic (): ?UploadedFile
+    {
+        return $this->uploadedPic;
+    }
+
+    /**
+     * @param UploadedFile $uploadedPic
+     */
+    public function setUploadedPic (UploadedFile $uploadedPic): void
+    {
+        $this->uploadedPic = $uploadedPic;
+    }
+
+
 }

@@ -5,6 +5,9 @@
 {% block body %}
     <div class="col-6 offset-3">
         <h1>Produit {{ product.name }}</h1>
+        <figure>
+            <img src="{{ asset('uploads/products/'~product.picture) }}" class="img-fluid" alt="product_picture">
+        </figure>
 
         <table class="table table-bordered table-hover table-warning">
             <tbody>
