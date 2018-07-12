@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if products is defined %}
+    {% if products is defined and products is not empty %}
         {% for product in products %}
             <div class="card">
                 <div class="container-fluid">
