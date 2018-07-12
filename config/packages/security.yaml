@@ -1,10 +1,16 @@
 security:
+    access_denied_url: /
     encoders:
         App\Entity\User:
             algorithm: bcrypt
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+        in_memory:
+            memory:
+                users:
+                    DuckAdmin:
+                             password: $2y$13$AmLmYd/743eXOwiDbG3KZevpvMuWLH6mGXtt16I05TjvagbgrKBrW
+                             roles: ROLE_ADMIN
         our_db_provider:
                     entity:
                         class: App\Entity\User
