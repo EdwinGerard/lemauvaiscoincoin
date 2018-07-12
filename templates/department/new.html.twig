@@ -3,8 +3,10 @@
 {% block title %}Nouveau Département{% endblock %}
 
 {% block body %}
-    <h1>Nouveau Département</h1>
+    <div class="col-5 offset-3">
+        <h1>Nouveau Département</h1>
 
-    {{ include('department/_form.html.twig') }}
+        {{ include('department/_form.html.twig') }}
+    </div>
 
 {% endblock %}

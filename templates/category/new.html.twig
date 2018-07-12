@@ -3,8 +3,10 @@
 {% block title %}Nouvelle Catégorie{% endblock %}
 
 {% block body %}
-    <h1>Nouvelle Catégorie</h1>
+    <div class="col-4 offset-3">
+        <h1>Nouvelle Catégorie</h1>
 
-    {{ include('category/_form.html.twig') }}
+        {{ include('category/_form.html.twig') }}
+    </div>
 
 {% endblock %}

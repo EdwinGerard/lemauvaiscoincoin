@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-6 offset-2">
+        <div class="col-6 offset-3">
             <h1>Liste des produits</h1>
 
             <table class="table table-bordered table-hover table-warning">
@@ -25,8 +25,8 @@
                         <td>{{ product.category }}</td>
                         <td>{{ product.department }}</td>
                         <td>
-                            <a href="{{ path('product_show', {'id': product.id}) }}" class="btn btn-info">Voir</a>
-                            <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-dark">Modifier</a>
+                            <a href="{{ path('product_show', {'id': product.id}) }}" class="btn btn-info mb-1">Voir</a>
+                            <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-dark mt-1">Modifier</a>
                         </td>
                     </tr>
                 {% else %}

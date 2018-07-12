@@ -21,6 +21,14 @@
     text-shadow: 1px 1px 2px black;
 }
 
+.admin {
+    height: 100%;
+    width: 100%;
+    background-image: url("../images/penguin-311501_1280.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 .parallaxe {
     background-attachment: fixed;
     background-size: cover;
