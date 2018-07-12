@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,6 +32,15 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            var_dump($data);
+            $file = $product->getUploadedPic();
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            $file->move(
+                $this->getParameter('products_images_directory'),
+                $fileName
+            );
+            $product->setPicture($fileName);
             $em = $this->getDoctrine()->getManager();
             $product->setCreator($this->getUser());
             $this->getUser()->addProduct($product);
@@ -63,6 +73,13 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+                $file = $product->getUploadedPic();
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                $file->move(
+                    $this->getParameter('products_images_directory'),
+                    $fileName
+                );
+                $product->setPicture($fileName);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('product_edit', ['id' => $product->getId()]);
@@ -88,5 +105,13 @@ class ProductController extends Controller
         }
 
         return $this->redirectToRoute('product_index');
+    }
+
+    /**
+     * @return string
+     */
+    private function generateUniqueFileName()
+    {
+        return md5(uniqid());
     }
 }
