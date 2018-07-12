@@ -11,13 +11,25 @@
         </div>
     </div>
     <div class="jumbotron searchBar">
+        <h2 class="text-center mb-4">Rechercher un produit</h2>
         <div class="row">
-            <div class="col-6 offset-3">
-
+            <div class="col-4 offset-4">
+                {{ form_start(form) }}
+                    <div class="d-flex flex-row">
+                        <div class="form-row text-center">
+                            {{ form_row(form.search, {'label' : 'Nom', 'attr' : {'class' : 'mr-3'}}) }}
+                            {{ form_row(form.filter, {'label' : 'Filtre', 'attr' : {'class' : 'ml-3'}}) }}
+                        </div>
+                        <button class="btn btn-success ml-5 my-4 searchButton">{{ button_label|default('Rechercher') }}</button>
+                    </div>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
     <div class="fullscreen parallaxe">
 
     </div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('build/js/search.js') }}"></script>
 {% endblock %}
