@@ -15,7 +15,26 @@ class HomeController extends Controller
      */
     public function index(Request $request, ProductRepository $productRepo)
     {
-        $form = $this->createForm(ResearchType::class);
+        $form = $this->createForm(ResearchType::class, null, array(
+            'action' => $this->generateUrl('search_result')
+        ));
+        $form->handleRequest($request);
+
+        return $this->render('home/index.html.twig', [
+            'controller_name' => 'HomeController',
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/search", name="search_result")
+     */
+    public function searchAction(Request $request, ProductRepository $productRepo)
+    {
+        $form = $this->createForm(ResearchType::class, null, array(
+            'action' => $this->generateUrl('search_result')
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -32,20 +51,8 @@ class HomeController extends Controller
                 $filterName = '';
             }
             $products = $productRepo->findByLike($product, $filterName, $filter);
-            return $this->redirectToRoute('search_result', ['products' => $products]);
+            return $this->render('home/search.html.twig', ['products' => $products]);
         }
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/search", name="search_result")
-     */
-    public function searchAction()
-    {
         return $this->render('home/search.html.twig');
     }
 
