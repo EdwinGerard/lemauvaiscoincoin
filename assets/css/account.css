@@ -1,0 +1,16 @@
+.account-block {
+    background-color: transparent;
+    position: relative;
+    left: 19vw;
+}
+
+.list-group-item {
+    background-color: lightcyan;
+}
+.duckProfile {
+    background-image: url("../images/animal-2029283_1280.png");
+    height: 33vh;
+    width: 16vw;
+    background-repeat: no-repeat;
+    background-size: 99%;
+}

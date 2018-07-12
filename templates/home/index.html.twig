@@ -3,12 +3,12 @@
 {% block title %}Le Mauvais Coin Coin!{% endblock %}
 
 {% block content %}
-    <div class="fullscreen parallaxe">
-        <div class="row">
-            <div class="col-6 offset-3 text-center ">
-                <h1>Le site où on vous prends pour des pigeons et on en ri-canne! (celle-là est pour toi Sylvain!)</h1>
-            </div>
+    <div class="row title">
+        <div class="col-6 offset-3 text-center ">
+            <h1>Le site où on vous prends pour des pigeons et on en ri-canne! (celle-là est pour toi Sylvain!)</h1>
         </div>
+    </div>
+    <div class="fullscreen parallaxe first">
     </div>
     <div class="jumbotron searchBar">
         <h2 class="text-center mb-4">Rechercher un produit</h2>
@@ -20,7 +20,7 @@
                             {{ form_row(form.search, {'label' : 'Nom', 'attr' : {'class' : 'mr-3'}}) }}
                             {{ form_row(form.filter, {'label' : 'Filtre', 'attr' : {'class' : 'ml-3'}}) }}
                         </div>
-                        <button class="btn btn-success ml-5 my-4 searchButton">{{ button_label|default('Rechercher') }}</button>
+                        <button class="btn btn-secondary ml-5 my-4 searchButton">{{ button_label|default('Rechercher') }}</button>
                     </div>
                 {{ form_end(form) }}
             </div>

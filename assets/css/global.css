@@ -10,7 +10,11 @@
 }
 
 .bg-custom {
-    background-color: brown;
+    background-color: darkgreen;
+}
+
+.jumbotron {
+    background-color: palegreen;
 }
 
 .fullscreen {
@@ -24,8 +28,9 @@
 .admin {
     height: 100%;
     width: 100%;
+    margin-top: 8vh;
     background-image: url("../images/penguin-311501_1280.png");
-    background-size: contain;
+    background-size: 55%;
     background-repeat: no-repeat;
 }
 
@@ -71,12 +76,27 @@ h5 {
     font-size: calc(13px + 11 * (100vw - 200px) / 1400);
 }
 
+.title {
+    position: relative;
+    top: 30vh;
+    background-color: lightgreen;
+}
+.first {
+    margin-top: -11vh;
+}
 .searchButton {
     position: relative;
-    top: 4px;
+    top: 6px;
     height: 40px;
 }
 
 .searchBar {
     margin-bottom: 0;
+}
+.cardImgTop {
+    width: 80%;
+    height: 40%;
+}
+.card-body {
+    max-height: 10vh;
 }

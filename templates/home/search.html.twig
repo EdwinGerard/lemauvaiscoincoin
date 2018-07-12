@@ -1,47 +1,28 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Recherche de produits{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('build/css/product.css') }}">{% endblock %}
 {% block body %}
     {% if products is defined and products is not empty %}
+        <div class="row">
+        <div class="card-group">
         {% for product in products %}
-            <div class="card">
-                <div class="container-fluid">
-                    <div class="wrapper row">
-                        <div class="preview col-md-6">
-                            <div class="preview-pic tab-content">
-                                <div class="tab-pane active" id="pic-1">
-                                    <img src="{{ asset('uploads/products/'~product.picture) }}" class="img-fluid card-img" alt="product_picture">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="details col-md-6">
-                            <h3 class="product-title">{{ product.name }}</h3>
-                            <div class="rating">
-                                <div class="stars">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-                                <span class="review-no">41 reviews</span>
-                            </div>
-                            <p class="product-description">{{ product.description }}</p>
-                            <p class="product-description">Catégorie : {{ product.category }}</p>
-                            <p class="product-description">Département: {{ product.department }}</p>
-                            <h4 class="price">current price: <span>$180</span></h4>
-                            <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-                            <div class="action">
-                                <button class="add-to-cart btn btn-default" type="button">add to cart</button>
-                            </div>
-                        </div>
+            <div class="card p-2 col-sm-4 mr-3">
+                <h5 class="card-title text-center">{{ product.name }}</h5>
+                <img class="cardImgTop img-fluid ml-4" src="{{ asset('uploads/products/'~product.picture) }}" alt="Card image cap">
+                <div class="card-body p-2">
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text">Catégorie: {{ product.category }}</p>
+                    <p class="card-text">Département: {{ product.department }}</p>
+                    <div class="d-flex flex-row justify-content-between mt-2">
+                        <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-dark">Modifier</a>
+                        {{ include('product/_delete_form.html.twig') }}
                     </div>
-                </div>
-                <div class="d-flex flex-row justify-content-between mt-2">
-                    <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-dark">Modifier</a>
-                    {{ include('product/_delete_form.html.twig') }}
                 </div>
             </div>
         {% endfor %}
+        </div>
+        </div>
     {% else %}
         <h1 class="text-center">Aucun résultat trouvé</h1>
         <div class="row">

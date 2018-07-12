@@ -44,7 +44,8 @@
 
 .card {
     margin-top: 50px;
-    background: #eee;
+    margin-left: 10vw;
+    background: transparent;
     padding: 3em;
     line-height: 1.5em; }
 
