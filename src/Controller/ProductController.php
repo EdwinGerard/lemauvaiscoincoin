@@ -64,17 +64,24 @@ class ProductController extends Controller
     {
         $form = $this->createForm(RatingType::class);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $seller = $product->getCreator();
+        $customer = $this->getUser();
+        $hasVoted = true;
+        $reviews = $em->getRepository('App:Review')->findBySeller($seller);
+        foreach ($reviews as $rev) {
+            if ($rev->getCustomer()->getId() !== $customer->getId()) {
+                $hasVoted = false;
+            }
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $noteVal = $data['rating'];
-            $seller = $product->getCreator();
-            $customer = $this->getUser();
             if ($customer == $seller) {
                 $this->addFlash('danger', 'Vous ne pouvez pas vous noter vous-même!');
                 return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
             }
-            $em = $this->getDoctrine()->getManager();
             $review = $em->getRepository('App:Review')->findOneByCustomer($customer);
             if ($review == null) {
                 $review = new Review();
@@ -91,7 +98,11 @@ class ProductController extends Controller
 
             return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
         }
-        return $this->render('product/show.html.twig', ['product' => $product, 'formNote' => $form->createView()]);
+        return $this->render('product/show.html.twig', [
+            'product' => $product,
+            'hasVoted' => $hasVoted,
+            'formNote' => $form->createView()
+        ]);
     }
 
     /**
