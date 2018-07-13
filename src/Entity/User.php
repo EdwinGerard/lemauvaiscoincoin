@@ -75,10 +75,27 @@ class User implements UserInterface, \Serializable
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $averageNote;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="seller", orphanRemoval=true)
+     */
+    private $reviews;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="customer", orphanRemoval=true)
+     */
+    private $reviewsDone;
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
         $this->products = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+        $this->reviewsDone = new ArrayCollection();
     }
 
     public function getId()
@@ -284,6 +301,78 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    public function getAverageNote(): ?float
+    {
+        return $this->averageNote;
+    }
 
+    public function setAverageNote(?float $averageNote): self
+    {
+        $this->averageNote = $averageNote;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Review[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setSeller($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->contains($review)) {
+            $this->reviews->removeElement($review);
+            // set the owning side to null (unless already changed)
+            if ($review->getSeller() === $this) {
+                $review->setSeller(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Review[]
+     */
+    public function getReviewsDone(): Collection
+    {
+        return $this->reviewsDone;
+    }
+
+    public function addReviewsDone(Review $reviewsDone): self
+    {
+        if (!$this->reviewsDone->contains($reviewsDone)) {
+            $this->reviewsDone[] = $reviewsDone;
+            $reviewsDone->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReviewsDone(Review $reviewsDone): self
+    {
+        if ($this->reviewsDone->contains($reviewsDone)) {
+            $this->reviewsDone->removeElement($reviewsDone);
+            // set the owning side to null (unless already changed)
+            if ($reviewsDone->getCustomer() === $this) {
+                $reviewsDone->setCustomer(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

@@ -68,8 +68,7 @@ class RegistrationController extends Controller
     /**
      * @param $token
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/registration/confirmed/{token}", name="registration_confirm")
-     * @Method("GET")
+     * @Route("/registration/confirmed/{token}", name="registration_confirm", methods="GET")
      */
     public function confirmAction($token)
     {

@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Review;
+use App\Entity\User;
 use App\Form\ProductType;
+use App\Form\RatingType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -32,8 +35,6 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            var_dump($data);
             $file = $product->getUploadedPic();
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
             $file->move(
@@ -57,11 +58,40 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/product/{id}", name="product_show", methods="GET")
+     * @Route("/product/{id}", name="product_show", methods="GET|POST")
      */
-    public function show(Product $product): Response
+    public function show(Product $product, Request $request): Response
     {
-        return $this->render('product/show.html.twig', ['product' => $product]);
+        $form = $this->createForm(RatingType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $noteVal = $data['rating'];
+            $seller = $product->getCreator();
+            $customer = $this->getUser();
+            if ($customer == $seller) {
+                $this->addFlash('danger', 'Vous ne pouvez pas vous noter vous-même!');
+                return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+            }
+            $em = $this->getDoctrine()->getManager();
+            $review = $em->getRepository('App:Review')->findOneByCustomer($customer);
+            if ($review == null) {
+                $review = new Review();
+                $review->setNote(intval($noteVal));
+                $review->setCustomer($customer);
+                $review->setSeller($seller);
+                $em->persist($review);
+                $this->addFlash('success', 'Merci pour votre note');
+            }else {
+                $this->addFlash('warning', 'Vous avez déjà noté ce vendeur');
+            }
+            $this->getDoctrine()->getManager()->flush();
+            $this->averageAction($seller);
+
+            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+        }
+        return $this->render('product/show.html.twig', ['product' => $product, 'formNote' => $form->createView()]);
     }
 
     /**
@@ -113,5 +143,16 @@ class ProductController extends Controller
     private function generateUniqueFileName()
     {
         return md5(uniqid());
+    }
+
+    public function averageAction(User $user)
+    {
+        $reviews = $user->getReviews();
+        foreach ($reviews as $review) {
+            $notes[] = $review->getNote();
+        }
+        $average = array_sum($notes) / count($notes);
+        $user->setAverageNote($average);
+        $this->getDoctrine()->getManager()->flush();
     }
 }

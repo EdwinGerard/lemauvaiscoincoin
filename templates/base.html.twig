@@ -53,32 +53,32 @@
                 </div>
             </nav>
         </header>
-        <div class="row">
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ label }} mt-3 col-6 offset-3 text-center">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-        </div>
         <div class="mt-5">
-        {% block content %}
-            {% if is_granted('ROLE_ADMIN') %}
-                <div class="admin">
-            {% endif %}
-                    <div class="container p-2">
-                        {% block body %}{% endblock %}
+            <div class="row mt-5">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} mt-3 col-6 offset-3 text-center">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            {% block content %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="admin">
+                {% endif %}
+                        <div class="container p-2">
+                            {% block body %}{% endblock %}
+                        </div>
+                {% if is_granted('ROLE_ADMIN') %}
                     </div>
-            {% if is_granted('ROLE_ADMIN') %}
-                </div>
-            {% endif %}
-        {% endblock %}
+                {% endif %}
+            {% endblock %}
         </div>
         {% block footer %}
             {% include 'footer.html.twig' %}
         {% endblock %}
-        {% block javascripts %}{% endblock %}
         <script src="{{ asset('build/js/app.js') }}"></script>
+        {% block javascripts %}{% endblock %}
     </body>
 </html>
