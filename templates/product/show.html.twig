@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Produit {{ product.name }}{% endblock %}
-{% block stylesheets %}<link rel="stylesheet" href="{{ asset('build/css/product.css') }}">{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/product.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/css/rating.css') }}">
+{% endblock %}
 {% block body %}
     <div class="card">
         <div class="container-fluid shadow p-2">
@@ -17,13 +20,12 @@
                     <h3 class="product-title">{{ product.name }}</h3>
                     <div class="rating">
                         <div class="stars">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
+                            {{ form_start(formNote) }}
+                            {{ form_row(formNote.rating) }}
+                            {{ form_end(formNote) }}
+                            <div class="containerNote">
+                            </div>
                         </div>
-                        <span class="review-no">41 reviews</span>
                     </div>
                     <p class="product-description">{{ product.description }}</p>
                     <p class="product-description">Catégorie : {{ product.category }}</p>
@@ -41,4 +43,7 @@
             {{ include('product/_delete_form.html.twig') }}
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('build/js/rating.js') }}"></script>
 {% endblock %}
