@@ -10,11 +10,11 @@
 }
 
 .bg-custom {
-    background-color: darkgreen;
+    background-color: #001a00;
 }
 
 .jumbotron {
-    background-color: palegreen;
+    background-color: #001a00;
 }
 
 .fullscreen {
@@ -79,7 +79,8 @@ h5 {
 .title {
     position: relative;
     top: 30vh;
-    background-color: lightgreen;
+    background-color: #001a00;
+    color: antiquewhite;
 }
 .first {
     margin-top: -11vh;
@@ -92,6 +93,7 @@ h5 {
 
 .searchBar {
     margin-bottom: 0;
+    color: white;
 }
 .cardImgTop {
     width: 80%;
