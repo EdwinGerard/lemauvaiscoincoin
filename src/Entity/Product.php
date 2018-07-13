@@ -61,6 +61,11 @@ class Product
      */
     private $uploadedPic;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
+
     public function getId()
     {
         return $this->id;
@@ -152,6 +157,18 @@ class Product
     public function setUploadedPic (UploadedFile $uploadedPic): void
     {
         $this->uploadedPic = $uploadedPic;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
     }
 
 
