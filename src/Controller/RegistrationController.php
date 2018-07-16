@@ -33,7 +33,13 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $file = $user->getUploadedPic();
+            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            $file->move(
+                $this->getParameter('avatars_images_directory'),
+                $fileName
+            );
+            $user->setAvatar($fileName);
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setIsActive(false);
@@ -85,5 +91,13 @@ class RegistrationController extends Controller
         $this->getDoctrine()->getManager()->flush();
 
         return $this->render('registration/confirmed.html.twig', ['user' => $user]);
+    }
+
+    /**
+     * @return string
+     */
+    private function generateUniqueFileName()
+    {
+        return md5(uniqid());
     }
 }

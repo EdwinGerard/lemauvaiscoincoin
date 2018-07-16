@@ -4,9 +4,21 @@
     content: 'Parcourir';
 }
 
+.rounded-circle {
+    width: 3vw;
+}
+
 .row {
     margin: 0;
     padding: 0;
+}
+
+.confirmBody {
+    height: 80vh;
+}
+
+.checkBody {
+    height: 80vh;
 }
 
 .bg-custom {
