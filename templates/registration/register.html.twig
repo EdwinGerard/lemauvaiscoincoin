@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="registerBody">
     <div class="row registration">
         <div class="col-sm-4 offset-3">
             {{ form_start(form) }}
@@ -30,5 +31,6 @@
             {{ form_end(form) }}
         </div>
         <div class="col-sm-5 register"></div>
+    </div>
     </div>
 {% endblock %}

@@ -8,6 +8,14 @@
     height: 82vh;
 }
 
+.registerBody {
+    height: 80vh;
+}
+
+.logBody {
+    height: 80vh;
+}
+
 .rounded-circle {
     width: 3vw;
 }
