@@ -1,5 +1,15 @@
 {% extends 'base.html.twig' %}
+{% block title %}
+    Inscription confirmée
+{% endblock %}
 
 {% block body %}
-    <p>Félicitations {{ user.userName }} bienvenue sur le mauvais coin coin!</p>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Félicitations {{ user.userName }} bienvenue sur le mauvais coin coin!</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 container confirmed"></div>
+    </div>
 {% endblock %}

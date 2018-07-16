@@ -1,14 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_row(form.firstName) }}
-    {{ form_row(form.lastName) }}
-    {{ form_row(form.userName) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+    <div class="row registration">
+        <div class="col-sm-6 register"></div>
+        <div class="col-sm-6">
+            {{ form_start(form) }}
 
-    <button type="submit" class="btn btn-primary">S'enregistrer</button>
-    {{ form_end(form) }}
+                {{ form_label(form.firstName, 'Prénom') }}
+                {{ form_widget(form.firstName) }}
+
+                {{ form_label(form.lastName, 'Nom') }}
+                {{ form_widget(form.lastName) }}
+
+                {{ form_label(form.userName, 'Nom d\'utilisateur') }}
+                {{ form_widget(form.userName) }}
+
+                {{ form_label(form.email, 'Email') }}
+                {{ form_widget(form.email) }}
+
+                {{ form_label(form.plainPassword.first, 'Mot de passe') }}
+                {{ form_widget(form.plainPassword.first) }}
+
+                {{ form_label(form.plainPassword.second, 'Répétez le mot de passe') }}
+                {{ form_widget(form.plainPassword.second) }}
+
+                <button type="submit" class="btn btn-primary mt-3">S'enregistrer</button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}
