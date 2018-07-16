@@ -43,10 +43,10 @@ class HomeController extends Controller
             if ($data['filter'] == 'category') {
                 $filter = $data['categories']->getId();
                 $filterName = 'category';
-            }elseif ($data['filter'] == 'department') {
+            } elseif ($data['filter'] == 'department') {
                 $filter = $data['departements']->getId();
                 $filterName = 'department';
-            }else {
+            } else {
                 $filter = '';
                 $filterName = '';
             }

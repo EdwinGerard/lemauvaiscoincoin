@@ -146,7 +146,7 @@ class Product
     /**
      * @return UploadedFile
      */
-    public function getUploadedPic (): ?UploadedFile
+    public function getUploadedPic(): ?UploadedFile
     {
         return $this->uploadedPic;
     }
@@ -154,7 +154,7 @@ class Product
     /**
      * @param UploadedFile $uploadedPic
      */
-    public function setUploadedPic (UploadedFile $uploadedPic): void
+    public function setUploadedPic(UploadedFile $uploadedPic): void
     {
         $this->uploadedPic = $uploadedPic;
     }
@@ -170,6 +170,4 @@ class Product
 
         return $this;
     }
-
-
 }

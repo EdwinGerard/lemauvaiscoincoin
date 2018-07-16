@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 class ProductController extends Controller
 {
     /**
@@ -94,7 +93,7 @@ class ProductController extends Controller
                 $review->setSeller($seller);
                 $em->persist($review);
                 $this->addFlash('success', 'Merci pour votre note');
-            }else {
+            } else {
                 $this->addFlash('warning', 'Vous avez déjà noté ce vendeur');
             }
             $this->getDoctrine()->getManager()->flush();
@@ -114,7 +113,7 @@ class ProductController extends Controller
             if ($review == null) {
                 $this->addFlash('warning', 'Vous devez noter ce vendeur avant de commenter');
                 $hasCommented = false;
-            }else {
+            } else {
                 $review->setOpinion($comment);
                 $this->addFlash('success', 'Merci pour votre commentaire');
             }
