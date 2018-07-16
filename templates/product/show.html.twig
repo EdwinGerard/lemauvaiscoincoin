@@ -69,7 +69,10 @@
                     {% if review.opinion is not null %}
                         <div class="card w-75 h-75">
                             <div class="card-body">
-                                <h5 class="card-title">{{ review.customer.userName }}</h5>
+                                <h5 class="card-title">
+                                    <img src="{{ asset('uploads/avatars/'~review.customer.avatar) }}" class="rounded-circle" alt="user_avatar">
+                                    {{ review.customer.userName }}
+                                </h5>
                                 <p class="card-text">{{ review.opinion }}</p>
                             </div>
                         </div>

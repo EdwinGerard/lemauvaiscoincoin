@@ -15,7 +15,9 @@
                 {{ form_widget(form.userName) }}
 
                 {{ form_label(form.email, 'Email') }}
-                {{ form_widget(form.email) }}
+                {{ form_widget(form.email, {'attr' : {'class' : 'mb-3'}}) }}
+
+                {{ form_row(form.uploadedPic, {'label' : 'Avatar'}) }}
 
                 {{ form_label(form.plainPassword.first, 'Mot de passe') }}
                 {{ form_widget(form.plainPassword.first) }}

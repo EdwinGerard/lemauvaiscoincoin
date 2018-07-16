@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -89,6 +90,21 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="customer", orphanRemoval=true)
      */
     private $reviewsDone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
+
+    /**
+     * @Assert\NotBlank(message="Please, uploads the avatar image as a JPG,JPEG,PNG file.")
+     * @Assert\File(
+     *     mimeTypes = {"image/jpeg", "image/png", "image/jpg"},
+     *     mimeTypesMessage = "Wrong file type (jpeg,png,jpg)"
+     * )
+     * @var UploadedFile
+     */
+    private $uploadedPic;
 
     public function __construct()
     {
@@ -374,5 +390,35 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getUploadedPic (): ?UploadedFile
+    {
+        return $this->uploadedPic;
+    }
+
+    /**
+     * @param UploadedFile $uploadedPic
+     */
+    public function setUploadedPic (UploadedFile $uploadedPic): void
+    {
+        $this->uploadedPic = $uploadedPic;
+    }
+
+
 
 }
