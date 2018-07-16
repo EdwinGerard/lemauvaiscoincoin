@@ -4,6 +4,10 @@
     content: 'Parcourir';
 }
 
+.editProfile {
+    height: 80vh;
+}
+
 .newProduct {
     height: 82vh;
 }
