@@ -35,16 +35,20 @@
                     <p class="product-description">Département: {{ product.department }}</p>
                     <h4 class="price">Prix: <span>{{ product.price }}€</span></h4>
                     <p class="vote">Notes de ce vendeur:</p>
-                    <p class="vote">
-                        <strong>
+                    <div class="vote">
                             {% for review in product.creator.reviews %}
-                                {{ review.customer.userName }}
-                                {% for i in 0..review.note-1 %}
-                                    <i class="material-icons selected">star</i>
-                                {% endfor %}
+                                <div class="d-flex flex-column">
+                                    <p class="vote">
+                                        <strong>
+                                            {{ review.customer.userName }}
+                                        </strong>
+                                    {% for i in 0..review.note-1 %}
+                                        <i class="material-icons selected">star</i>
+                                    {% endfor %}
+                                    </p>
+                                </div>
                             {% endfor %}
-                        </strong>
-                    </p>
+                    </div>
                     <div class="action">
                         <button class="add-to-cart btn btn-success" type="button">add to cart</button>
                     </div>
@@ -57,6 +61,28 @@
             {{ include('product/_delete_form.html.twig') }}
         </div>
         {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex flex-column">
+                {% for review in product.creator.reviews %}
+                    {% if review.opinion is not null %}
+                        <div class="card w-75 h-75">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ review.customer.userName }}</h5>
+                                <p class="card-text">{{ review.opinion }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if hasCommented == false %}
+                    {{ form_start(formComment) }}
+                    {{ form_row(formComment.comment) }}
+                    <button type="submit" class="btn btn-warning">Poster</button>
+                    {{ form_end(formComment) }}
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block javascripts %}

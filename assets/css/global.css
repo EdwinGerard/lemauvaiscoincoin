@@ -9,10 +9,6 @@
     padding: 0;
 }
 
-.container {
-    height: 84vh;
-}
-
 .bg-custom {
     background-color: black;
     opacity: 0.8;
@@ -108,7 +104,8 @@ h5 {
 }
 
 .blockSearch {
-    width: 20vw;
+    width: 80vw;
+    height: 83vh;
 }
 .cardImgTop {
     width: 80%;

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Entity\Review;
 use App\Entity\User;
+use App\Form\CommentType;
 use App\Form\ProductType;
 use App\Form\RatingType;
 use App\Repository\ProductRepository;
@@ -63,11 +64,14 @@ class ProductController extends Controller
     public function show(Product $product, Request $request): Response
     {
         $form = $this->createForm(RatingType::class);
+        $commentForm = $this->createForm(CommentType::class);
+        $commentForm->handleRequest($request);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         $seller = $product->getCreator();
         $customer = $this->getUser();
         $hasVoted = true;
+        $hasCommented = true;
         $reviews = $em->getRepository('App:Review')->findBySeller($seller);
         foreach ($reviews as $rev) {
             if ($rev->getCustomer()->getId() !== $customer->getId()) {
@@ -98,10 +102,31 @@ class ProductController extends Controller
 
             return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
         }
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $data = $commentForm->getData();
+            $comment = $data['comment'];
+            if ($customer == $seller) {
+                $this->addFlash('danger', 'Vous ne pouvez pas vous commenter vous-même!');
+                return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+            }
+            $review = $em->getRepository('App:Review')->findOneByCustomer($customer);
+            if ($review == null) {
+                $this->addFlash('warning', 'Vous devez noter ce vendeur avant de commenter');
+                $hasCommented = false;
+            }else {
+                $review->setOpinion($comment);
+                $this->addFlash('success', 'Merci pour votre commentaire');
+            }
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+        }
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'hasVoted' => $hasVoted,
-            'formNote' => $form->createView()
+            'hasCommented' => $hasCommented,
+            'formNote' => $form->createView(),
+            'formComment' => $commentForm->createView()
         ]);
     }
 
