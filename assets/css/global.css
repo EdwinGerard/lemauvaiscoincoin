@@ -4,6 +4,10 @@
     content: 'Parcourir';
 }
 
+.newProduct {
+    height: 82vh;
+}
+
 .rounded-circle {
     width: 3vw;
 }
