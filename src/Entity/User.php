@@ -197,7 +197,7 @@ class User implements UserInterface, \Serializable
      * @return string the string representation of the object or null
      * @since 5.1.0
      */
-    public function serialize ()
+    public function serialize()
     {
         return serialize(array(
             $this->id,
@@ -215,7 +215,7 @@ class User implements UserInterface, \Serializable
      * @return void
      * @since 5.1.0
      */
-    public function unserialize ($serialized)
+    public function unserialize($serialized)
     {
         list (
             $this->id,
@@ -231,7 +231,7 @@ class User implements UserInterface, \Serializable
      *
      * @return (Role|string)[] The user roles
      */
-    public function getRoles ()
+    public function getRoles()
     {
         return $this->roles;
     }
@@ -243,7 +243,7 @@ class User implements UserInterface, \Serializable
      *
      * @return string|null The salt
      */
-    public function getSalt ()
+    public function getSalt()
     {
         return null;
     }
@@ -254,7 +254,7 @@ class User implements UserInterface, \Serializable
      * This is important if, at any given point, sensitive information like
      * the plain-text password is stored on this object.
      */
-    public function eraseCredentials ()
+    public function eraseCredentials()
     {
     }
 
@@ -273,7 +273,7 @@ class User implements UserInterface, \Serializable
     /**
      * @return null|string
      */
-    public function getConfirmationToken (): ?string
+    public function getConfirmationToken(): ?string
     {
         return $this->confirmationToken;
     }
@@ -281,7 +281,7 @@ class User implements UserInterface, \Serializable
     /**
      * @param null|string $confirmationToken
      */
-    public function setConfirmationToken (?string $confirmationToken): void
+    public function setConfirmationToken(?string $confirmationToken): void
     {
         $this->confirmationToken = $confirmationToken;
     }
@@ -406,7 +406,7 @@ class User implements UserInterface, \Serializable
     /**
      * @return UploadedFile
      */
-    public function getUploadedPic (): ?UploadedFile
+    public function getUploadedPic(): ?UploadedFile
     {
         return $this->uploadedPic;
     }
@@ -414,11 +414,8 @@ class User implements UserInterface, \Serializable
     /**
      * @param UploadedFile $uploadedPic
      */
-    public function setUploadedPic (UploadedFile $uploadedPic): void
+    public function setUploadedPic(UploadedFile $uploadedPic): void
     {
         $this->uploadedPic = $uploadedPic;
     }
-
-
-
 }

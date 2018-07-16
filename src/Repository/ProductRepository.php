@@ -37,7 +37,7 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('idFilter', "$filter")
                 ->getQuery()
                 ->execute();
-        }elseif ($filterName == 'department') {
+        } elseif ($filterName == 'department') {
             return $this->createQueryBuilder('p')
                 ->join('p.department', 'd')
                 ->where('p.name LIKE :name')

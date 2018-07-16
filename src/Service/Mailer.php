@@ -8,7 +8,6 @@
 
 namespace App\Service;
 
-
 use App\Entity\User;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -44,7 +43,11 @@ class Mailer
     {
         $message = new \Swift_Message();
         $template = 'mail/confirmation.html.twig';
-        $url = $this->router->generate('registration_confirm', array('token' => $user->getConfirmationToken()), UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate(
+            'registration_confirm',
+            array('token' => $user->getConfirmationToken()),
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
         $body = $this->templating->render($template, [
             'user' => $user,
             'confirmationUrl' => $url,
