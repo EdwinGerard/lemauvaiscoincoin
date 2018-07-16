@@ -1,26 +1,31 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
+.custom-file-label::after {
+    content: 'Parcourir';
+}
+
 .row {
     margin: 0;
     padding: 0;
 }
 
 .container {
-    height: 100vh;
+    height: 84vh;
 }
 
 .bg-custom {
-    background-color: #001a00;
+    background-color: black;
+    opacity: 0.8;
 }
 
 .jumbotron {
-    background-color: #001a00;
+    background-color: transparent;
 }
 
 .fullscreen {
     height: 100vh;
     width: 100%;
-    background-image: url('../images/duck-1463317.jpg');
+    background-image: url('../images/rubber-duck-1401225_1920.jpg');
     color: antiquewhite;
     text-shadow: 1px 1px 2px black;
 }
@@ -31,6 +36,14 @@
     margin-top: 8vh;
     background-image: url("../images/penguin-311501_1280.png");
     background-size: 55%;
+    background-repeat: no-repeat;
+}
+
+.client {
+    height: 100%;
+    width: 100%;
+    background-image: url("../images/Daffy_Duck.png");
+    background-size: 35%;
     background-repeat: no-repeat;
 }
 
@@ -51,6 +64,7 @@
 .myFooter, .myFooter a:link, .myFooter a:visited , .myFooter a:hover, .myFooter a:active {
     text-decoration: none;
     color: white;
+    font-size: calc(13px + 11 * (100vw - 200px) / 1400);
 }
 
 p {
@@ -79,11 +93,13 @@ h5 {
 .title {
     position: relative;
     top: 30vh;
-    background-color: #001a00;
+    background-color: black;
+    opacity: 0.7;
     color: antiquewhite;
+    text-shadow: 1px 1px 2px black;
 }
 .first {
-    margin-top: -11vh;
+    margin-top: -10vh;
 }
 .searchButton {
     position: relative;
@@ -91,9 +107,8 @@ h5 {
     height: 40px;
 }
 
-.searchBar {
-    margin-bottom: 0;
-    color: white;
+.blockSearch {
+    width: 20vw;
 }
 .cardImgTop {
     width: 80%;
@@ -101,4 +116,48 @@ h5 {
 }
 .card-body {
     max-height: 10vh;
+}
+
+.fa-twitter {
+    color: yellow;
+}
+
+.login {
+    background-image: url("../images/canard-159511.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.register {
+    background-image: url("../images/duck-2236908_1920.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.confirmed {
+    background-image: url("../images/219aac1ba37c5270b685406606e1f1fc.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.checkRegister {
+    background-image: url("../images/egg-2894593_1920.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+@media (min-width: 600px) {
+    .registration {
+        position: relative;
+        right: 8vw;
+    }
+}
+
+@media (max-width: 600px) {
+    .register {
+        display: none;
+    }
+    .login {
+        display: none;
+    }
 }

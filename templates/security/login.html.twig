@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-sm-5 offset-sm-3">
+    <div class="row mt-5 ml-5">
+        <div class="col-sm-2 login">
+        </div>
+        <div class="col-sm-5 offset-sm-2">
             <div class="well">
                 <form action="{{ path('security_login') }}" method="post">
                     <fieldset>
                         <legend><i class="fa fa-lock" aria-hidden="true"></i> Connexion</legend>
                         <div class="form-group">
-                            <label for="username">Username</label>
+                            <label for="username">Nom d'utilisateur</label>
                             <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
                         </div>
                         <div class="form-group">
