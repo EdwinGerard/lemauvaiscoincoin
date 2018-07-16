@@ -146,13 +146,6 @@ h5 {
     background-repeat: no-repeat;
 }
 
-@media (min-width: 600px) {
-    .registration {
-        position: relative;
-        right: 8vw;
-    }
-}
-
 @media (max-width: 600px) {
     .register {
         display: none;

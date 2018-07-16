@@ -2,9 +2,7 @@
 
 {% block body %}
     <div class="row mt-5 ml-5">
-        <div class="col-sm-2 login">
-        </div>
-        <div class="col-sm-5 offset-sm-2">
+        <div class="col-sm-5 offset-sm-3">
             <div class="well">
                 <form action="{{ path('security_login') }}" method="post">
                     <fieldset>
@@ -25,5 +23,6 @@
                 </form>
             </div>
         </div>
+        <div class="col-sm-2 login"></div>
     </div>
 {% endblock %}

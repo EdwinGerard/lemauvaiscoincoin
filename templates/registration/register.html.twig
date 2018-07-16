@@ -2,8 +2,7 @@
 
 {% block body %}
     <div class="row registration">
-        <div class="col-sm-6 register"></div>
-        <div class="col-sm-6">
+        <div class="col-sm-4 offset-3">
             {{ form_start(form) }}
 
                 {{ form_label(form.firstName, 'Prénom') }}
@@ -28,5 +27,6 @@
 
             {{ form_end(form) }}
         </div>
+        <div class="col-sm-5 register"></div>
     </div>
 {% endblock %}
