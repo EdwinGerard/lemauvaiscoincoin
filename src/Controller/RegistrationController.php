@@ -33,13 +33,15 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $user->getUploadedPic();
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-            $file->move(
-                $this->getParameter('avatars_images_directory'),
-                $fileName
-            );
-            $user->setAvatar($fileName);
+            if ($user->getUploadedPic() !== null) {
+                $file = $user->getUploadedPic();
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                $file->move(
+                    $this->getParameter('avatars_images_directory'),
+                    $fileName
+                );
+                $user->setAvatar($fileName);
+            }
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setIsActive(false);

@@ -97,12 +97,11 @@ class User implements UserInterface, \Serializable
     private $avatar;
 
     /**
-     * @Assert\NotBlank(message="Please, uploads the avatar image as a JPG,JPEG,PNG file.")
      * @Assert\File(
      *     mimeTypes = {"image/jpeg", "image/png", "image/jpg"},
      *     mimeTypesMessage = "Wrong file type (jpeg,png,jpg)"
      * )
-     * @var UploadedFile
+     * @var UploadedFile|null
      */
     private $uploadedPic;
 

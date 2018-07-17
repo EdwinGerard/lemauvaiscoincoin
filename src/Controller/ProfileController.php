@@ -34,13 +34,15 @@ class ProfileController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $user->getUploadedPic();
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-            $file->move(
-                $this->getParameter('avatars_images_directory'),
-                $fileName
-            );
-            $user->setAvatar($fileName);
+            if ($user->getUploadedPic() !== null) {
+                $file = $user->getUploadedPic();
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                $file->move(
+                    $this->getParameter('avatars_images_directory'),
+                    $fileName
+                );
+                $user->setAvatar($fileName);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('profile');

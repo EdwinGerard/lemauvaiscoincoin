@@ -26,7 +26,7 @@ class UserType extends AbstractType
             ->add('email', EmailType::class)
             ->add('firstName', TextType::class)
             ->add('lastName', TextType::class)
-            ->add('uploadedPic', FileType::class)
+            ->add('uploadedPic', FileType::class, ['required' => false])
         ;
     }
 

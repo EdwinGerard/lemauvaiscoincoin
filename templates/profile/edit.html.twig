@@ -3,6 +3,7 @@
 {% block body %}
     <div class="row editProfile">
         <div class="col-sm-5 offset-4">
+            <img src="{{ asset('uploads/avatars/'~user.avatar) }}" class="rounded-circle" alt="avatar_profile">
             {{ form_start(form) }}
 
             {{ form_label(form.firstName, 'Prénom') }}
