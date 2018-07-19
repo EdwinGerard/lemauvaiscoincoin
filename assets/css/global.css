@@ -75,6 +75,7 @@ img {
 
 .client {
     height: 100%;
+    min-height: 80vh;
     width: 100%;
     background-image: url("../images/Daffy_Duck.png");
     background-size: 35%;
