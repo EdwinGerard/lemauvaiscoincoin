@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une catégorie{% endblock %}
+
+{% block body %}
+    <div class="col-5 offset-3">
+        <h1>Modifier une catégorie</h1>
+
+        {{ include('category/_form.html.twig', {'button_label': 'Modifier'}) }}
+        <div class="text-center">
+            {{ include('category/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

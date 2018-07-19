@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="registerBody">
+    <div class="row registration">
+        <div class="col-sm-4 offset-3">
+            {{ form_start(form) }}
+
+                {{ form_label(form.firstName, 'Prénom') }}
+                {{ form_widget(form.firstName) }}
+
+                {{ form_label(form.lastName, 'Nom') }}
+                {{ form_widget(form.lastName) }}
+
+                {{ form_label(form.userName, 'Nom d\'utilisateur') }}
+                {{ form_widget(form.userName) }}
+
+                {{ form_label(form.email, 'Email') }}
+                {{ form_widget(form.email, {'attr' : {'class' : 'mb-3'}}) }}
+
+                {{ form_row(form.uploadedPic, {'label' : 'Avatar'}) }}
+
+                {{ form_label(form.plainPassword.first, 'Mot de passe') }}
+                {{ form_widget(form.plainPassword.first) }}
+
+                {{ form_label(form.plainPassword.second, 'Répétez le mot de passe') }}
+                {{ form_widget(form.plainPassword.second) }}
+
+                <button type="submit" class="btn btn-primary mt-3">S'enregistrer</button>
+
+            {{ form_end(form) }}
+        </div>
+        <div class="col-sm-5 register"></div>
+    </div>
+    </div>
+{% endblock %}

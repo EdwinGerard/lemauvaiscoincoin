@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Mauvais Coin Coin!{% endblock %}
+
+{% block content %}
+    <div class="fullscreen parallaxe first">
+        <div class="title shadow-lg">
+            <div class="col-12">
+            <div class="row">
+                <div class="col-4 offset-4">
+                    <h2 class="text-center mb-4">Rechercher un produit canard</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 offset-4">
+                    {{ form_start(form) }}
+                    <div class="d-flex flex-row">
+                        <div class="form-row text-center">
+                            {{ form_row(form.search, {'label' : 'Nom', 'attr' : {'class' : 'mr-3'}}) }}
+                            {{ form_row(form.filter, {'label' : 'Filtre', 'attr' : {'class' : 'ml-3'}}) }}
+                        </div>
+                        <button class="btn btn-warning ml-5 my-4 searchButton">{{ button_label|default('Rechercher') }}</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('build/js/search.js') }}"></script>
+{% endblock %}

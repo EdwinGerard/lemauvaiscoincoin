@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche de produits{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('build/css/product.css') }}">{% endblock %}
+{% block body %}
+    <div class="blockSearch">
+    {% if products is defined and products is not empty %}
+        <div class="row">
+        {% for product in products %}
+            <div class="card cardSearch p-2 col-sm-2 mr-3">
+                <h5 class="card-title text-center"><a href="{{ path('product_show', {'id' : product.id}) }}">{{ product.name }}</a></h5>
+                <img class="cardImgTop img-fluid ml-4" src="{{ asset('uploads/products/'~product.picture) }}" alt="Card image cap">
+                <div class="card-body p-2">
+                    <p class="card-text">Catégorie: {{ product.category }}</p>
+                    <p class="card-text">Département: {{ product.department }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-4 offset-4">
+                <h1>Aucun résultat trouvé</h1>
+                <div class="no-result ml-4">
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    </div>
+{% endblock %}

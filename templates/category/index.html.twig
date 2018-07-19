@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-9 offset-3">
+            <h1>Liste des catégories</h1>
+            <ul>
+            {% for category in categories %}
+                <li class="mb-2">{{ category.name }}
+                    <a href="{{ path('category_show', {'id': category.id}) }}" class="btn btn-info ml-2">Voir</a>
+                    <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-warning">Modifier</a>
+                </li>
+                {% else %}
+                <li>Aucune catégorie en base</li>
+            {% endfor %}
+            </ul>
+            <a href="{{ path('category_new') }}" class="btn btn-primary">Créer</a>
+        </div>
+    </div>
+{% endblock %}

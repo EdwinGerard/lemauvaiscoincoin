@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-6 offset-4">
+            <h1>Liste des produits</h1>
+            <ul>
+                {% for product in products %}
+                    <li class="mb-2">{{ product.name }}
+                        <a href="{{ path('product_show', {'id': product.id}) }}" class="btn btn-info ml-2">Voir</a>
+                        <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-warning">Modifier</a>
+                        <ul>
+                            <li><strong>{{ product.category }}</strong></li>
+                            <li>{{ product.department }}</li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li>Aucune produit en base</li>
+                {% endfor %}
+            </ul>
+            <a href="{{ path('product_new') }}" class="btn btn-primary">Créer</a>
+        </div>
+    </div>
+{% endblock %}
