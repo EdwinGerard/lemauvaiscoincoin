@@ -58,6 +58,7 @@
                 </div>
             </nav>
         </header>
+        {% block flash %}
             <div class="row mt-5">
                 <div class="mt-5 col-6 offset-3">
                 {% for label, messages in app.flashes %}
@@ -69,6 +70,7 @@
                 {% endfor %}
                 </div>
             </div>
+        {% endblock %}
             {% block content %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <div class="admin">

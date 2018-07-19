@@ -10,6 +10,7 @@ Encore
     .addEntry('js/rating', './assets/js/rating.js')
     .addEntry('js/addToCart', './assets/js/addToCart.js')
     .addStyleEntry('css/app', './assets/css/global.css')
+    .addStyleEntry('css/404', './assets/css/404.css')
     .addStyleEntry('css/rating', './assets/css/rating.css')
     .addStyleEntry('css/account', './assets/css/account.css')
     .addStyleEntry('css/product', './assets/css/product.css')
