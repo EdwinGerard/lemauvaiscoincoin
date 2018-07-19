@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,6 +21,7 @@ class ProductType extends AbstractType
             ->add('uploadedPic', FileType::class, ['label' => ' '])
             ->add('category')
             ->add('department')
+            ->add('price', NumberType::class, ['label' => 'Prix'])
         ;
     }
 

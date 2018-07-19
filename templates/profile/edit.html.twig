@@ -20,6 +20,11 @@
 
             {{ form_row(form.uploadedPic, {'label' : 'Avatar'}) }}
 
+            <div class="form-group">
+                {{ form_label(form.isDelete) }}
+                {{ form_widget(form.isDelete) }}
+            </div>
+
             {{ form_label(form.plainPassword.first, 'Mot de passe') }}
             {{ form_widget(form.plainPassword.first) }}
 

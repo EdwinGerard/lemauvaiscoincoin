@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -31,6 +34,10 @@ class ProfileController extends Controller
     {
         $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user);
+        $form->add('isDelete', CheckboxType::class, [
+            'label' => 'Voulez-vous supprimer votre Avatar?',
+            'required' => false
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -42,7 +49,13 @@ class ProfileController extends Controller
                     $fileName
                 );
                 $user->setAvatar($fileName);
+            }elseif ($user->isDelete() !== null) {
+                $filename = $user->getAvatar();
+                $fileRemove = new Filesystem();
+                $fileRemove->remove($filename);
+                $user->setAvatar('');
             }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('profile');

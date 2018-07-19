@@ -105,6 +105,11 @@ class User implements UserInterface, \Serializable
      */
     private $uploadedPic;
 
+    /**
+     * @var bool
+     */
+    private $isDelete;
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
@@ -417,4 +422,22 @@ class User implements UserInterface, \Serializable
     {
         $this->uploadedPic = $uploadedPic;
     }
+
+    /**
+     * @return bool
+     */
+    public function isDelete (): ?bool
+    {
+        return $this->isDelete;
+    }
+
+    /**
+     * @param bool $isDelete
+     */
+    public function setIsDelete (bool $isDelete): void
+    {
+        $this->isDelete = $isDelete;
+    }
+
+
 }
