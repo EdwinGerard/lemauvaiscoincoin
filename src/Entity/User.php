@@ -97,14 +97,18 @@ class User implements UserInterface, \Serializable
     private $avatar;
 
     /**
-     * @Assert\NotBlank(message="Please, uploads the avatar image as a JPG,JPEG,PNG file.")
      * @Assert\File(
      *     mimeTypes = {"image/jpeg", "image/png", "image/jpg"},
      *     mimeTypesMessage = "Wrong file type (jpeg,png,jpg)"
      * )
-     * @var UploadedFile
+     * @var UploadedFile|null
      */
     private $uploadedPic;
+
+    /**
+     * @var bool
+     */
+    private $isDelete;
 
     public function __construct()
     {
@@ -418,4 +422,22 @@ class User implements UserInterface, \Serializable
     {
         $this->uploadedPic = $uploadedPic;
     }
+
+    /**
+     * @return bool
+     */
+    public function isDelete (): ?bool
+    {
+        return $this->isDelete;
+    }
+
+    /**
+     * @param bool $isDelete
+     */
+    public function setIsDelete (bool $isDelete): void
+    {
+        $this->isDelete = $isDelete;
+    }
+
+
 }

@@ -153,3 +153,9 @@
         opacity: 1;
         -webkit-transform: scale(1);
         transform: scale(1); } }
+
+#myModal .modalBody {
+    background-image: url("../images/a2717aa35cb40c51fa87be67ff2483dd--donald-duck-laughing.jpg");
+    background-repeat: no-repeat;
+    background-size: 88%;
+}

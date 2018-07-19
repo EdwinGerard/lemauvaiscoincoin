@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row editProfile">
+        <div class="col-sm-5 offset-4">
+            <img src="{{ asset('uploads/avatars/'~user.avatar) }}" class="rounded-circle" alt="avatar_profile">
+            {{ form_start(form) }}
+
+            {{ form_label(form.firstName, 'Prénom') }}
+            {{ form_widget(form.firstName) }}
+
+            {{ form_label(form.lastName, 'Nom') }}
+            {{ form_widget(form.lastName) }}
+
+            {{ form_label(form.userName, 'Nom d\'utilisateur') }}
+            {{ form_widget(form.userName) }}
+
+            {{ form_label(form.email, 'Email') }}
+            {{ form_widget(form.email, {'attr' : {'class' : 'mb-3'}}) }}
+
+            {{ form_row(form.uploadedPic, {'label' : 'Avatar'}) }}
+
+            <div class="form-group">
+                {{ form_label(form.isDelete) }}
+                {{ form_widget(form.isDelete) }}
+            </div>
+
+            {{ form_label(form.plainPassword.first, 'Mot de passe') }}
+            {{ form_widget(form.plainPassword.first) }}
+
+            {{ form_label(form.plainPassword.second, 'Répétez le mot de passe') }}
+            {{ form_widget(form.plainPassword.second) }}
+
+            <button type="submit" class="btn btn-primary mt-3">Modifier</button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

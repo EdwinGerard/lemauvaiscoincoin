@@ -26,7 +26,7 @@ class UserType extends AbstractType
             ->add('email', EmailType::class)
             ->add('firstName', TextType::class)
             ->add('lastName', TextType::class)
-            ->add('uploadedPic', FileType::class)
+            ->add('uploadedPic', FileType::class, ['required' => false])
         ;
     }
 
@@ -34,6 +34,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            "allow_extra_fields" => true
         ]);
     }
 }

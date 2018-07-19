@@ -8,6 +8,7 @@ Encore
     .addEntry('js/app', './assets/js/global.js')
     .addEntry('js/search', './assets/js/search.js')
     .addEntry('js/rating', './assets/js/rating.js')
+    .addEntry('js/addToCart', './assets/js/addToCart.js')
     .addStyleEntry('css/app', './assets/css/global.css')
     .addStyleEntry('css/rating', './assets/css/rating.css')
     .addStyleEntry('css/account', './assets/css/account.css')
