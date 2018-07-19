@@ -6,33 +6,16 @@
     <div class="row">
         <div class="col-6 offset-3">
             <h1>Liste des départements</h1>
-
-            <table class="table table-bordered table-hover table-warning">
-                <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
+            <ul>
                 {% for department in departments %}
-                    <tr>
-                        <td>{{ department.code }}</td>
-                        <td>{{ department.name }}</td>
-                        <td>
-                            <a href="{{ path('department_show', {'id': department.id}) }}" class="btn btn-info">Voir</a>
-                            <a href="{{ path('department_edit', {'id': department.id}) }}" class="btn btn-dark">Modifier</a>
-                        </td>
-                    </tr>
+                    <li class="mb-2">{{ department.name }}
+                        <a href="{{ path('department_show', {'id': department.id}) }}" class="btn btn-info ml-2">Voir</a>
+                        <a href="{{ path('department_edit', {'id': department.id}) }}" class="btn btn-warning">Modifier</a>
+                    </li>
                 {% else %}
-                    <tr>
-                        <td colspan="4">Aucun département en base</td>
-                    </tr>
+                    <li>Aucune département en base</li>
                 {% endfor %}
-                </tbody>
-            </table>
-
+            </ul>
             <a href="{{ path('department_new') }}" class="btn btn-primary">Créer</a>
         </div>
     </div>
