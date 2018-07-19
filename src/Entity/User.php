@@ -426,7 +426,7 @@ class User implements UserInterface, \Serializable
     /**
      * @return bool
      */
-    public function isDelete (): ?bool
+    public function isDelete(): ?bool
     {
         return $this->isDelete;
     }
@@ -434,10 +434,8 @@ class User implements UserInterface, \Serializable
     /**
      * @param bool $isDelete
      */
-    public function setIsDelete (bool $isDelete): void
+    public function setIsDelete(bool $isDelete): void
     {
         $this->isDelete = $isDelete;
     }
-
-
 }

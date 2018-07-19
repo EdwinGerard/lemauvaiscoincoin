@@ -49,7 +49,7 @@ class ProfileController extends Controller
                     $fileName
                 );
                 $user->setAvatar($fileName);
-            }elseif ($user->isDelete() !== null) {
+            } elseif ($user->isDelete() !== null) {
                 $filename = $user->getAvatar();
                 $fileRemove = new Filesystem();
                 $fileRemove->remove($filename);
