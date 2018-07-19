@@ -4,34 +4,18 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-6 offset-3">
+        <div class="col-9 offset-3">
             <h1>Liste des catégories</h1>
-
-            <table class="table table-bordered table-hover table-warning">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for category in categories %}
-                    <tr>
-                        <td>{{ category.id }}</td>
-                        <td>{{ category.name }}</td>
-                        <td>
-                            <a href="{{ path('category_show', {'id': category.id}) }}" class="btn btn-info">Voir</a>
-                            <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-dark">Modifier</a>
-                        </td>
-                    </tr>
+            <ul>
+            {% for category in categories %}
+                <li class="mb-2">{{ category.name }}
+                    <a href="{{ path('category_show', {'id': category.id}) }}" class="btn btn-info ml-2">Voir</a>
+                    <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-warning">Modifier</a>
+                </li>
                 {% else %}
-                    <tr>
-                        <td colspan="3">Aucune catégorie en base</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-
+                <li>Aucune catégorie en base</li>
+            {% endfor %}
+            </ul>
             <a href="{{ path('category_new') }}" class="btn btn-primary">Créer</a>
         </div>
     </div>
