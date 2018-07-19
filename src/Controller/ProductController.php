@@ -26,6 +26,16 @@ class ProductController extends Controller
     }
 
     /**
+     * @param ProductRepository $productRepository
+     * @return Response
+     * @Route("/products", name="product_list")
+     */
+    public function listVisiteur(ProductRepository $productRepository): Response
+    {
+        return $this->render('product/list.html.twig', ['products' => $productRepository->findAll()]);
+    }
+
+    /**
      * @Route("/product/new", name="product_new", methods="GET|POST")
      */
     public function new(Request $request): Response
