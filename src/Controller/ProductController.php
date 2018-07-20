@@ -32,8 +32,7 @@ class ProductController extends Controller
      */
     public function listVisiteur(ProductRepository $productRepository, $page): Response
     {
-        $nbProductsParPage = $this->container->getParameter('front_nb_products_par_page');
-        $em = $this->getDoctrine()->getManager();
+        $nbProductsParPage = 12;
         $products = $productRepository->findAllPagination($page, $nbProductsParPage);
         $pagination = array(
             'page' => $page,

@@ -28,34 +28,57 @@ class ProductRepository extends ServiceEntityRepository
      * @param $filter
      * @return mixed
      */
-    public function findByLike($name, $filterName, $filter)
+    public function findByLike($name, $filterName, $filter, $page, $nbMaxParPage)
     {
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
+            );
+        }
+
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
+
+        if (!is_numeric($nbMaxParPage)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $nbMaxParPage est incorrecte (valeur : ' . $nbMaxParPage . ').'
+            );
+        }
+
         if ($filterName === '' && $filter === '') {
-            return $this->createQueryBuilder('p')
+            $qb = $this->createQueryBuilder('p')
                 ->where('p.name LIKE :name')
                 ->setParameter('name', "%$name%")
-                ->getQuery()
-                ->execute();
+                ->getQuery();
         }
         if ($filterName == 'category') {
-            return $this->createQueryBuilder('p')
+            $qb = $this->createQueryBuilder('p')
                 ->join('p.category', 'c')
                 ->where('p.name LIKE :name')
                 ->andWhere('c.id = :idFilter')
                 ->setParameter('name', "%$name%")
                 ->setParameter('idFilter', "$filter")
-                ->getQuery()
-                ->execute();
+                ->getQuery();
+
         } elseif ($filterName == 'department') {
-            return $this->createQueryBuilder('p')
+            $qb = $this->createQueryBuilder('p')
                 ->join('p.department', 'd')
                 ->where('p.name LIKE :name')
                 ->andWhere('d.id = :idFilter')
                 ->setParameter('name', "%$name%")
                 ->setParameter('idFilter', "$filter")
-                ->getQuery()
-                ->execute();
+                ->getQuery();
         }
+        $premierResultat = ($page - 1) * $nbMaxParPage;
+        $qb->setFirstResult($premierResultat)->setMaxResults($nbMaxParPage);
+        $paginator = new Paginator($qb);
+
+        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas.');
+        }
+
+        return $paginator;
     }
 
     /**

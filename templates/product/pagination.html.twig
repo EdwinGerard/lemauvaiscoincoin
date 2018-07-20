@@ -6,7 +6,7 @@
                     <<
                 </a>
             </li>
-            <li>
+            <li class="ml-2 mr-2">
                 <a href="{{ path(pagination.nomRoute,
                     pagination.paramsRoute|merge({'page': pagination.page-1})) }}">
                     <
@@ -17,14 +17,14 @@
         {# Affichage de toutes les pages entre p-4 et p+4 sauf si < 1 ou > nbPages #}
         {% for p in range(max(pagination.page-4, 1), min(pagination.page+4, pagination.nbPages)) %}
             <li {% if p == pagination.page %}class="active"{% endif %}>
-                <a href="{{ path(pagination.nomRoute, pagination.paramsRoute|merge({'page': p})) }}">
+                <a href="{{ path(pagination.nomRoute, pagination.paramsRoute|merge({'page': p})) }}" class="ml-2 mr-2">
                     {{ p }}
                 </a>
             </li>
         {% endfor %}
 
         {% if pagination.page < pagination.nbPages %}
-            <li>
+            <li class="ml-2 mr-2">
                 <a href="{{ path(pagination.nomRoute,
                     pagination.paramsRoute|merge({'page': pagination.page+1})) }}">
                     >

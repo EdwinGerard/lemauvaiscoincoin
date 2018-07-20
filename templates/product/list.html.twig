@@ -27,5 +27,7 @@
             </div>
         {% endif %}
     </div>
-    {% include '../pagination.html.twig' %}
+    <div class="mt-3 d-flex justify-content-center">
+        {{ include('product/pagination.html.twig') }}
+    </div>
 {% endblock %}
