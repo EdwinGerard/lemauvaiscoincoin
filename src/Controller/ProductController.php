@@ -90,10 +90,18 @@ class ProductController extends Controller
         $customer = $this->getUser();
         $hasVoted = true;
         $hasCommented = true;
-        $reviews = $em->getRepository('App:Review')->findBySeller($seller);
-        foreach ($reviews as $rev) {
-            if ($rev->getCustomer()->getId() !== $customer->getId()) {
-                $hasVoted = false;
+        $reviews = $em->getRepository('App:Review')->findByProduct($product);
+        if ($reviews == null) {
+            $hasVoted = false;
+            $hasCommented = false;
+        }else {
+            foreach ($reviews as $rev) {
+                if ($rev->getCustomer()->getId() !== $customer->getId()) {
+                    $hasVoted = false;
+                    $hasCommented = false;
+                }elseif ($rev->getOpinion() == null) {
+                    $hasCommented = false;
+                }
             }
         }
 
@@ -102,23 +110,43 @@ class ProductController extends Controller
             $noteVal = $data['rating'];
             if ($customer == $seller) {
                 $this->addFlash('danger', 'Vous ne pouvez pas vous noter vous-même!');
-                return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+                return $this->redirectToRoute('product_show', [
+                    'id' => $product->getId(),
+                    'hasCommented' => $hasCommented,
+                    'hasVoted' => $hasVoted
+                ]);
             }
-            $review = $em->getRepository('App:Review')->findOneByCustomer($customer);
-            if ($review == null) {
+            $reviews = $em->getRepository('App:Review')->findByProduct($product);
+            if ($reviews == null) {
                 $review = new Review();
                 $review->setNote(intval($noteVal));
                 $review->setCustomer($customer);
                 $review->setSeller($seller);
+                $review->setProduct($product);
                 $em->persist($review);
+                $hasCommented = false;
                 $this->addFlash('success', 'Merci pour votre note');
             } else {
-                $this->addFlash('warning', 'Vous avez déjà noté ce vendeur');
+                foreach ($reviews as $review) {
+                    if ($review->getCustomer()->getId() == $this->getUser()->getId()) {
+                        $this->addFlash('warning', 'Vous avez déjà noté ce vendeur');
+                        break;
+                    }else {
+                        $review = new Review();
+                        $review->setNote(intval($noteVal));
+                        $review->setCustomer($customer);
+                        $review->setSeller($seller);
+                        $review->setProduct($product);
+                        $em->persist($review);
+                        $hasCommented = false;
+                        $this->addFlash('success', 'Merci pour votre note');
+                    }
+                }
             }
             $this->getDoctrine()->getManager()->flush();
             $this->averageAction($seller);
 
-            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+            return $this->redirectToRoute('product_show', ['id' => $product->getId(), 'hasCommented' => $hasCommented]);
         }
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
@@ -128,16 +156,25 @@ class ProductController extends Controller
                 $this->addFlash('danger', 'Vous ne pouvez pas vous commenter vous-même!');
                 return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
             }
-            $review = $em->getRepository('App:Review')->findOneByCustomer($customer);
-            if ($review == null) {
+            $reviews = $em->getRepository('App:Review')->findByProduct($product);
+            if ($reviews == null) {
                 $this->addFlash('warning', 'Vous devez noter ce vendeur avant de commenter');
                 $hasCommented = false;
             } else {
-                $review->setOpinion($comment);
-                $this->addFlash('success', 'Merci pour votre commentaire');
+                foreach ($reviews as $review) {
+                    if ($review->getCustomer()->getId() == $this->getUser()->getId() && $review->getOpinion() !== null) {
+                        $this->addFlash('warning', 'Vous avez déjà commenté ce produit');
+                        break;
+                    }else {
+                        $review->setOpinion($comment);
+                        $this->addFlash('success', 'Merci pour votre commentaire');
+                        break;
+                    }
+                }
+
             }
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+            return $this->redirectToRoute('product_show', ['id' => $product->getId(), 'hasCommented' => $hasCommented]);
         }
         return $this->render('product/show.html.twig', [
             'product' => $product,

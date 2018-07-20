@@ -62,7 +62,7 @@
             </nav>
         </header>
         {% block flash %}
-            <div class="row mt-5">
+            <div class="row">
                 <div class="mt-5 col-6 offset-3">
                 {% for label, messages in app.flashes %}
                     {% for message in messages %}
@@ -76,11 +76,11 @@
         {% endblock %}
             {% block content %}
                 {% if is_granted('ROLE_ADMIN') %}
-                    <div class="admin">
+                    <div class="admin mb-5">
                 {% else %}
-                    <div class="client">
+                    <div class="client mb-5">
                 {% endif %}
-                        <div class="container p-2 mt-5">
+                        <div class="container p-2">
                             {% block body %}{% endblock %}
                         </div>
                 {% if is_granted('ROLE_ADMIN') %}
