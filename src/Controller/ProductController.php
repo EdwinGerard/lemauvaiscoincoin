@@ -28,11 +28,20 @@ class ProductController extends Controller
     /**
      * @param ProductRepository $productRepository
      * @return Response
-     * @Route("/products", name="product_list")
+     * @Route("/products/{page}", requirements={"page" = "\d+"}, name="product_list")
      */
-    public function listVisiteur(ProductRepository $productRepository): Response
+    public function listVisiteur(ProductRepository $productRepository, $page): Response
     {
-        return $this->render('product/list.html.twig', ['products' => $productRepository->findAll()]);
+        $nbProductsParPage = 12;
+        $products = $productRepository->findAllPagination($page, $nbProductsParPage);
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($products) / $nbProductsParPage),
+            'nomRoute' => 'product_list',
+            'paramsRoute' => array()
+        );
+
+        return $this->render('product/list.html.twig', ['products' => $products, 'pagination' => $pagination]);
     }
 
     /**
