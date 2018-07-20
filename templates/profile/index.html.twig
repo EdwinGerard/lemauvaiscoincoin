@@ -14,6 +14,7 @@
                 <p>Nom: {{ user.lastName }}</p>
                 <p>Nom d'utilisateur: {{ user.userName }}</p>
                 <p>Courriel: {{ user.email }}</p>
+                <p>Ma moyenne en tant que vendeur: {{ user.averageNote }}/5</p>
                 <a href="{{ path('edit_profile') }}" class="btn btn-primary">Modifier</a>
             </div>
             <div class="col-6">
@@ -24,8 +25,9 @@
                 {% endfor %}
                 </div>
             </div>
+        </div>
         <div class="row">
-            <div class="col-1 offset-11">
+            <div class="col-1 offset-3">
                 <div class="duckProfile"></div>
             </div>
         </div>
