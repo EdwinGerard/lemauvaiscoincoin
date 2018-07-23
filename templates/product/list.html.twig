@@ -8,7 +8,7 @@
             <div class="row">
                 {% for product in products %}
                     <div class="card cardSearch p-2 col-sm-2 mr-3">
-                        <h5 class="card-title text-center"><a href="{{ path('product_show', {'id' : product.id}) }}">{{ product.name }}</a></h5>
+                        <h5 class="card-title text-center"><a href="{{ path('product_show', {'id' : product.id}) }}" class="linkProduct">{{ product.name }}</a></h5>
                         <img class="cardImgTop img-fluid ml-4" src="{{ asset('uploads/products/'~product.picture) }}" alt="Card image cap">
                         <div class="card-body p-2">
                             <p class="card-text">Catégorie: {{ product.category }}</p>

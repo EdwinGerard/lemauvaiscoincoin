@@ -50,7 +50,7 @@ class HomeController extends Controller
                 $filter = '';
                 $filterName = '';
             }
-            $nbProductsParPage = 12;
+            $nbProductsParPage = 9;
             $products = $productRepo->findAllPagination($page, $nbProductsParPage);
             $pagination = array(
                 'page' => $page,

@@ -32,7 +32,7 @@ class ProductController extends Controller
      */
     public function listVisiteur(ProductRepository $productRepository, $page): Response
     {
-        $nbProductsParPage = 12;
+        $nbProductsParPage = 9;
         $products = $productRepository->findAllPagination($page, $nbProductsParPage);
         $pagination = array(
             'page' => $page,
